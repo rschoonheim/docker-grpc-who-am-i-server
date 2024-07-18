@@ -8,16 +8,52 @@ Docker environment.
 ### Server - HTTP Mode
 To run the server in HTTP mode, you can use the following example:
 ```yaml
+networks:
+  default:
+    name: docker-grpc-who-am-i-network
+    driver: bridge
+
+services:
+
+  # HTTP Server
+  # ------------------------------------------
+  #
+  http-server:
+    image: ghcr.io/rschoonheim/docker-grpc-who-am-i-server/httpserver:latest
+    container_name: http-server
+    ports:
+      - "50051:50051"
+    networks:
+      - default
+    restart: always
 ```
 
-### Server - HTTP Mode
+### Server - HTTPs Mode
 
 #### Generating server and client certificates
 To generate the certificates, you can use the following script
 ```bash
 ```
 
-### Server - gRPC Mode
-To run the server in gRPC mode, you can use the following example:
+#### Running the server
 ```yaml
+networks:
+  default:
+    name: docker-grpc-who-am-i-network
+    driver: bridge
+
+
+services:
+
+  # HTTPS Server
+  # ------------------------------------------
+  #
+  https-server:
+    image: ghcr.io/rschoonheim/docker-grpc-who-am-i-server/httpsserver:latest
+    container_name: https-server
+    ports:
+      - "50052:50052"
+    networks:
+      - default
+    restart: always
 ```
