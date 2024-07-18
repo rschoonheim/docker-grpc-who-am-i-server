@@ -1,4 +1,4 @@
-name: Server - build
+name: HTTP Server - build
 
 on:
   push:
@@ -26,6 +26,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./
-          file: httpServer.Dockerfile
+          file: httpserver.Dockerfile
           push: true
-          tags: github.com/rschoonheim/docker-grpc-who-am-i-server:httpServer
+          tags: github.com/rschoonheim/docker-grpc-who-am-i-server/httpserver:latest
