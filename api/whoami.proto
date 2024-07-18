@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package docker.whoami.service;
+
+option go_package = "internal/whoami;whoami";
+
+message WhoAmIRequest {}
+
+message WhoAmIResponse {
+  string name = 1;
+}
+
+service WhoAmI {
+  rpc GetWhoAmI(WhoAmIRequest) returns (WhoAmIResponse);
+}
