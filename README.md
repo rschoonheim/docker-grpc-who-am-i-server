@@ -26,6 +26,16 @@ services:
     networks:
       - default
     restart: always
+
+  # HTTP Client
+  # ------------------------------------------
+  #
+  http-client:
+    image: ghcr.io/rschoonheim/docker-grpc-who-am-i-server/httpclient:latest
+    container_name: http-client
+    networks:
+      - default
+    restart: always
 ```
 
 ### Server - HTTPs Mode
@@ -53,6 +63,16 @@ services:
     container_name: https-server
     ports:
       - "50052:50052"
+    networks:
+      - default
+    restart: always
+
+  # HTTPS Client
+  # ------------------------------------------
+  #
+  https-client:
+    image: ghcr.io/rschoonheim/docker-grpc-who-am-i-server/httpsclient:latest
+    container_name: https-client
     networks:
       - default
     restart: always
