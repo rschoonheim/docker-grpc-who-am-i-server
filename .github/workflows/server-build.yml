@@ -28,4 +28,4 @@ jobs:
           context: ./
           file: ./cmd/server/Dockerfile
           push: true
-          tags: github.com/rschoonheim/docker-grpc-who-am-i-server/serverHttp:latest
+          tags: github.com/rschoonheim/docker-grpc-who-am-i-server:httpServer
