@@ -6,7 +6,7 @@ COPY go.mod ./
 
 RUN go mod download
 
-COPY cmd/http-server .
+COPY . .
 
 EXPOSE 8080
 
