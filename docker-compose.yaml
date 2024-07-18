@@ -1,0 +1,5 @@
+networks:
+  default:
+    name: docker-grpc-who-am-i-network
+    driver: bridge
+      
