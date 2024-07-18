@@ -28,7 +28,4 @@ jobs:
           context: ./
           file: ./cmd/server/Dockerfile
           push: true
-          tags: github.com/rschoonheim/docker-grpc-who-am-i-server/server:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
+          tags: github.com/rschoonheim/docker-grpc-who-am-i-server/serverHttp:latest
