@@ -10,7 +10,7 @@ COPY . .
 
 EXPOSE 8080
 
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o server .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o server ./cmd/server
 
 FROM alpine:3.9 AS final
 
