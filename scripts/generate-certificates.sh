@@ -41,8 +41,6 @@ touch index.txt
 echo 1000 > serial
 echo 1000 > crlnumber
 
-pwd
-
 cp ../../config/intermediate.cnf openssl.cnf
 
 # Generate private key for Intermediate Certificate Authority (CA)
