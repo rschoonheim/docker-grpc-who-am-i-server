@@ -12,14 +12,21 @@ import (
 	"os"
 )
 
+var whoamiServerAddr string
 var tlsCertPath string
 var tlsKeyPath string
 var tlsCaPath string
 
 func init() {
+	whoamiServerAddr = os.Getenv("WHOAMI_SERVER_ADDR")
 	tlsCertPath = os.Getenv("TLS_CERT_PATH")
 	tlsKeyPath = os.Getenv("TLS_KEY_PATH")
 	tlsCaPath = os.Getenv("CA_CERT_PATH")
+
+	if whoamiServerAddr == "" {
+		slog.Error("Missing environment variable", "variable", "WHOAMI_SERVER_ADDR")
+		os.Exit(1)
+	}
 
 	if tlsCertPath == "" {
 		slog.Error("Missing environment variable", "variable", "TLS_CERT_PATH")
@@ -65,7 +72,7 @@ func main() {
 		}},
 	})
 
-	conn, err := grpc.Dial("localhost:8080", grpc.WithTransportCredentials(credsClient))
+	conn, err := grpc.Dial(whoamiServerAddr, grpc.WithTransportCredentials(credsClient))
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
