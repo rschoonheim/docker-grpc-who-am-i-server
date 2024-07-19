@@ -22,10 +22,11 @@ services:
     image: ghcr.io/rschoonheim/docker-grpc-who-am-i-server/httpserver:latest
     container_name: http-server
     ports:
-      - "50051:50051"
+      - "8080:8080"
     networks:
       - default
     restart: always
+
 
   # HTTP Client
   # ------------------------------------------
@@ -64,7 +65,7 @@ services:
     image: ghcr.io/rschoonheim/docker-grpc-who-am-i-server/httpsserver:latest
     container_name: https-server
     ports:
-      - "50052:50052"
+      - "8080:8080"
     networks:
       - default
     restart: always
