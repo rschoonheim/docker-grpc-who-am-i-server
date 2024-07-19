@@ -1,7 +1,5 @@
 #!/bin/bash
 
-rm -rf .tls
-
 # Check if `.tls` directory exists, if not create it.
 #
 if [ ! -d ./.tls ]; then
