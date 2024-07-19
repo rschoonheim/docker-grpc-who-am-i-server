@@ -44,12 +44,20 @@ func init() {
 	}
 }
 
-func main() {
-
-	tlsCert, err := os.ReadFile(tlsCertPath)
+func makeTlsConfiguration() (*tls.Config, error) {
+	backendCert, err := os.ReadFile(tlsCertPath)
 	if err != nil {
-		slog.Error("Failed to read certificate", "error", err)
-		os.Exit(1)
+		log.Fatalf("failed to read certificate: %v", err)
+	}
+
+	backendKey, err := os.ReadFile(tlsKeyPath)
+	if err != nil {
+		log.Fatalf("failed to read private key: %v", err)
+	}
+
+	cert, err := tls.X509KeyPair(backendCert, backendKey)
+	if err != nil {
+		log.Fatalf("failed to parse certificate: %v", err)
 	}
 
 	rootCa, err := os.ReadFile(tlsCaPath)
@@ -58,19 +66,26 @@ func main() {
 		os.Exit(1)
 	}
 
-	pool := x509.NewCertPool()
-	if !pool.AppendCertsFromPEM(rootCa) {
+	rootCaPool := x509.NewCertPool()
+	if !rootCaPool.AppendCertsFromPEM(rootCa) {
 		slog.Error("Failed to append certificate")
 		os.Exit(1)
 	}
 
-	credsClient := credentials.NewTLS(&tls.Config{
-		ServerName: "client",
-		RootCAs:    pool,
-		Certificates: []tls.Certificate{{
-			Certificate: [][]byte{tlsCert},
-		}},
-	})
+	return &tls.Config{
+		ServerName:   "client",
+		Certificates: []tls.Certificate{cert},
+		RootCAs:      rootCaPool,
+	}, nil
+}
+
+func main() {
+	tlsConfiguration, err := makeTlsConfiguration()
+	if err != nil {
+		slog.Error("Failed to create TLS configuration", "error", err)
+		os.Exit(1)
+	}
+	credsClient := credentials.NewTLS(tlsConfiguration)
 
 	conn, err := grpc.Dial(whoamiServerAddr, grpc.WithTransportCredentials(credsClient))
 	if err != nil {

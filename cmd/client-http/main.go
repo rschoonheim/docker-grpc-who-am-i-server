@@ -12,7 +12,6 @@ var whoamiServerAddr string
 
 func init() {
 	whoamiServerAddr = os.Getenv("WHOAMI_SERVER_ADDR")
-
 	if whoamiServerAddr == "" {
 		slog.Error("Missing environment variable", "variable", "WHOAMI_SERVER_ADDR")
 	}
