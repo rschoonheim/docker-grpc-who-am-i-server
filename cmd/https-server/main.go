@@ -4,7 +4,6 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"docker-grpc-who-am-i-service/internal/whoami"
-	"fmt"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"log"
@@ -75,7 +74,7 @@ func makeTlsConfiguration() (*tls.Config, error) {
 
 func main() {
 
-	listener, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", 8080))
+	listener, err := net.Listen("tcp", ":8080")
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 		os.Exit(1)
