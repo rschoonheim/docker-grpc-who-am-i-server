@@ -29,6 +29,12 @@ services:
     networks:
       - default
     restart: always
+    environment:
+      - CA_CERT_PATH=/tls/intermediate/certs/intermediate.cert.pem
+      - TLS_CERT_PATH=/tls/intermediate/certs/server.cert.pem
+      - TLS_KEY_PATH=/tls/intermediate/private/server.key.pem
+    volumes:
+      - ./tls:/tls
 
   # HTTPS Client
   # ------------------------------------------
@@ -41,6 +47,12 @@ services:
     restart: always
     environment:
       - WHOAMI_SERVER_ADDRESS=https-server:8080
+      - CA_CERT_PATH=/tls/intermediate/certs/intermediate.cert.pem
+      - TLS_CERT_PATH=/tls/intermediate/certs/client.cert.pem
+      - TLS_KEY_PATH=/tls/intermediate/private/client.key.pem
+    volumes:
+      - ./tls:/tls
+
 
   # HTTP Client
   # ------------------------------------------
