@@ -7,7 +7,7 @@ option go_package = "internal/whoami;whoami";
 message WhoAmIRequest {}
 
 message WhoAmIResponse {
-  string name = 1;
+  string message = 1;
 }
 
 service WhoAmI {

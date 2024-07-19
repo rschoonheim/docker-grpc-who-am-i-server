@@ -36,6 +36,8 @@ services:
     networks:
       - default
     restart: always
+    environment:
+      - WHOAMI_SERVER_ADDRESS=http-server:8080
 ```
 
 ### Server - HTTPs Mode
@@ -76,4 +78,6 @@ services:
     networks:
       - default
     restart: always
+    environment:
+      - WHOAMI_SERVER_ADDRESS=https-server:8080
 ```
